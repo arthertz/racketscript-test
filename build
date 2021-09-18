@@ -1,0 +1,28 @@
+#!/bin/sh
+#Dependencies: Stopify Racketscript (Racks) NPM Node
+
+#STOPRUNTIME='stopify-full.bundle.js'
+#STOPIFYURL="https://github.com/plasma-umass/Stopify/releases/download/0.7.2/$STOPRUNTIME"
+RACKSOUT='js-build'
+SRC="$RACKSOUT/modules/"
+STOPOUT="stopped.js"
+
+echo "Building $1"
+
+#run racks
+racks -bd $RACKSOUT $1
+
+#install babel
+npm install @babel/preset-env @babel/core http-server rollup @rollup/plugin-babel js-beautify --save-dev
+
+#run rollup with babel
+rollup "$SRC/$1.js" -o bundle.js -f cjs --config rollup.config.js
+
+#use stopify
+stopify bundle.js $STOPOUT
+
+#beautify the results
+js-beautify -r $STOPOUT
+
+#host a static http server in this directory
+http-server

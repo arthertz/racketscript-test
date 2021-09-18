@@ -1,0 +1,10 @@
+<html>
+        <body>
+        <script src=stopify.bundle.js></script>
+        <script>
+        var runner = stopify.stopify("stopped.js");
+        runner.g = { console, document, Date };
+        runner.run(() => console.log("done"));
+        </script>
+        </body>
+    </html>
