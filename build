@@ -5,9 +5,10 @@
 #STOPIFYURL="https://github.com/plasma-umass/Stopify/releases/download/0.7.2/$STOPRUNTIME"
 RACKSOUT='js-build'
 SRC="$RACKSOUT/modules/"
-STOPOUT="stopped.js"
+STOPDIR="node_modules/.bin/stopify"
+STOPOUT="$1_stopped.js"
 
-echo "Building $1"
+echo "Building $1 to $1_stopped.js"
 
 #run racks
 racks -bd $RACKSOUT $1
@@ -24,5 +25,5 @@ stopify bundle.js $STOPOUT
 #beautify the results
 js-beautify -r $STOPOUT
 
-#host a static http server in this directory
-http-server
+#
+node "$1_stopped.js"
