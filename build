@@ -12,8 +12,8 @@ echo "Building $1"
 #run racks
 racks -bd $RACKSOUT $1
 
-#install babel
-npm install @babel/preset-env @babel/core http-server rollup @rollup/plugin-babel js-beautify --save-dev
+#install node packages
+npm install
 
 #run rollup with babel
 rollup "$SRC/$1.js" -o bundle.js -f cjs --config rollup.config.js
