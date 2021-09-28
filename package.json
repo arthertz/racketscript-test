@@ -1,0 +1,30 @@
+{
+  "name": "racketscript-test",
+  "version": "0.0.2",
+  "description": "To build a racket file using racketscript and stopify, use `./build filename` To remove generated files, use `./clean`",
+  "main": "stop_test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arthertz/racketscript-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arthertz/racketscript-test/issues"
+  },
+  "homepage": "https://github.com/arthertz/racketscript-test#readme",
+  "devDependencies": {
+    "http-server": "^13.0.2",
+    "js-beautify": "^1.14.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@stopify/stopify": "^0.7.5",
+    "rollup": "^2.57.0"
+  }
+}
