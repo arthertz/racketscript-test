@@ -1,14 +1,17 @@
 #!/bin/sh
 #Dependencies: Stopify Racketscript (Racks) NPM Node
 
-#STOPRUNTIME='stopify-full.bundle.js'
-#STOPIFYURL="https://github.com/plasma-umass/Stopify/releases/download/0.7.2/$STOPRUNTIME"
+STOPRUNTIME='stopify-full.bundle.js'
+STOPIFYURL="https://github.com/plasma-umass/Stopify/releases/download/0.7.2/$STOPRUNTIME"
 RACKSOUT='js-build'
 SRC="$RACKSOUT/modules/"
 STOPDIR="node_modules/.bin/stopify"
-STOPOUT="$1_stopped.js"
+STOPOUT="stopped.js"
 
 echo "Building $1 to $1_stopped.js"
+
+
+wget $STOPIFYURL -O $STOPRUNTIME
 
 #run racks
 racks -bd $RACKSOUT $1
@@ -20,10 +23,10 @@ npm install
 rollup "$SRC/$1.js" -o bundle.js -f cjs --config rollup.config.js
 
 #use stopify
-stopify bundle.js $STOPOUT
+$STOPDIR --require-runtime bundle.js $STOPOUT
 
 #beautify the results
 js-beautify -r $STOPOUT
 
 #
-node "$1_stopped.js"
+node "stopped.js"
