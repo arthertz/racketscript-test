@@ -16,7 +16,7 @@ racks -bd $RACKSOUT $1
 npm install @babel/preset-env @babel/core http-server rollup @rollup/plugin-babel js-beautify --save-dev
 
 #run rollup with babel
-rollup "$SRC/$1.js" -o bundle.js -f cjs --config rollup.config.js
+rollup "$SRC/$1.js" -o bundle.js -f cjs --config rollup.config.js --input "$1.js"
 
 #use stopify
 stopify bundle.js $STOPOUT
