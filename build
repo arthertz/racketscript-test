@@ -5,13 +5,10 @@ SRC="$RACKSOUT/modules/"
 STOPDIR="node_modules/.bin/stopify"
 STOPOUT="$SRC/$1.js"
 
-echo "Building $1 to $1_stopped.js"
-
-#install node packages
-npm install
+echo "Building $1 to $STOPOUT"
 
 #run racks
-racks -bd $RACKSOUT $1
+racks -t stopify -d $RACKSOUT $1
 
 #run rollup with babel
 rollup --input $STOPOUT -o $STOPOUT -f cjs --config rollup.config.js
@@ -23,4 +20,4 @@ $STOPDIR --require-runtime $STOPOUT $STOPOUT
 js-beautify -r $STOPOUT
 
 #
-node "stopped.js"
+node $STOPOUT
