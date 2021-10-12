@@ -1,17 +1,15 @@
 #!/bin/sh
 #Dependencies: Stopify Racketscript (Racks) NPM Node
 RACKSOUT='js-build'
-SRC="$RACKSOUT/modules/"
 STOPDIR="node_modules/.bin/stopify"
-STOPOUT="$SRC/$1.js"
+STOPOUT="modules/$1.js"
 
-echo "Building $1 to $1_stopped.js"
-
-#install node packages
-npm install
+echo "Building $1 to $RACKSOUT/$STOPOUT"
 
 #run racks
-racks -bd $RACKSOUT $1
+racks -t stopify -d $RACKSOUT $1
+
+cd js-build
 
 #run rollup with babel
 rollup --input $STOPOUT -o $STOPOUT -f cjs --config rollup.config.js
@@ -19,8 +17,6 @@ rollup --input $STOPOUT -o $STOPOUT -f cjs --config rollup.config.js
 #use stopify
 $STOPDIR --require-runtime $STOPOUT $STOPOUT
 
-#beautify the results
-js-beautify -r $STOPOUT
+node $STOPOUT
 
-#
-node "stopped.js"
+cd ..
