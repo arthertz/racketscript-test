@@ -7,4 +7,4 @@ rm stopify-full.bundle.js
 rm -rf stopify-out
 rm -rf node_modules
 rm package-lock.json
-rm stopped.js
+rm $1stopped.js
