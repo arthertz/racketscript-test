@@ -1,10 +1,4 @@
 #!/bin/sh
 #Specify racket file as $1
 rm -rf js-build
-rm bundle.js
-rm runtime_bundle.js
-rm stopify-full.bundle.js
-rm -rf stopify-out
 rm -rf node_modules
-rm package-lock.json
-rm $1stopped.js
