@@ -3,21 +3,21 @@
 RACKSOUT='js-build'
 SRC="$RACKSOUT/modules/"
 STOPDIR="node_modules/.bin/stopify"
-STOPOUT="stopped.js"
+STOPOUT="$SRC/$1.js"
 
 echo "Building $1 to $1_stopped.js"
-
-#run racks
-racks -bd $RACKSOUT $1
 
 #install node packages
 npm install
 
+#run racks
+racks -bd $RACKSOUT $1
+
 #run rollup with babel
-rollup "$SRC/$1.js" -o bundle.js -f cjs --config rollup.config.js --input "$1.js"
+rollup --input $STOPOUT -o $STOPOUT -f cjs --config rollup.config.js
 
 #use stopify
-$STOPDIR --require-runtime bundle.js $STOPOUT
+$STOPDIR --require-runtime $STOPOUT $STOPOUT
 
 #beautify the results
 js-beautify -r $STOPOUT
