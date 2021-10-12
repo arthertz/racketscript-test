@@ -7,4 +7,4 @@
         a
         (loop (sub1 n) (* n a)))))
 
-(display (factorial 6))
+(factorial 6)
