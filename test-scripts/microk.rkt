@@ -11,6 +11,15 @@
          (set! state ((cdr state)))
          result)))
 
+; get the nth value from a stream
+(define ((get-nth stream) n)
+ (define recur (get-nth stream))
+ (if (zero? n)
+  (stream)
+  (begin
+   (stream)
+   (recur (sub1 n)))))
+
 ;; micro-kanren implementation
 (define (var c) (vector c))
 (define (var? x) (vector? x))
@@ -80,3 +89,9 @@
 (define stream (next-stream fives-and-sixes))
 
 (list (stream) (stream) (stream) (stream) (stream) (stream))
+
+; get the next value from the stream
+(stream)
+
+; get the 10000th value from the stream
+((get-nth stream) 10000)
