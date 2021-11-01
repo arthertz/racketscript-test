@@ -78,3 +78,5 @@
 
 
 (define stream (next-stream fives-and-sixes))
+
+(list (stream) (stream) (stream) (stream) (stream) (stream))
