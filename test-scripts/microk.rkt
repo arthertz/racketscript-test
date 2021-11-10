@@ -5,26 +5,17 @@
 
 (define (call/empty-state g) (g empty-state))
 
-(define (next-stream goal)
- (let ((state (goal empty-state)))
-  (thunk (define result (car state))
-         (set! state ((cdr state)))
-         result)))
 
 ; get the nth value from a stream
-(define ((get-nth stream) n)
- (define recur (get-nth stream))
+(define (get-nth stream n)
  (if (zero? n)
-  (stream)
-  (begin
-   (stream)
-   (recur (sub1 n)))))
+  (car stream)
+  (get-nth ((cdr stream)) (sub1 n))))
 
 ;; micro-kanren implementation
 (define (var c) (vector c))
 (define (var? x) (vector? x))
-(define (var=? x1 x2)
- (= (vector-ref x1 0) (vector-ref x2 0)))
+(define (var=? x1 x2) (= (vector-ref x1 0) (vector-ref x2 0)))
 (define (ext-s x v s) (cons `(,x . ,v) s))
 
 (define (walk u s)
@@ -85,13 +76,10 @@
 (define fives-and-sixes
  (call/fresh (lambda (x) (disj (fives x) (sixes x)))))
 
-
-(define stream (next-stream fives-and-sixes))
-
-(list (stream) (stream) (stream) (stream) (stream) (stream))
-
-; get the next value from the stream
-(stream)
-
+(get-nth (fives-and-sixes empty-state) 1)
+(get-nth (fives-and-sixes empty-state) 10)
+(get-nth (fives-and-sixes empty-state) 100)
+(get-nth (fives-and-sixes empty-state) 1000)
+(get-nth (fives-and-sixes empty-state) 10000)
 ; get the 10000th value from the stream
-((get-nth stream) 10000)
+(get-nth (fives-and-sixes empty-state) 100000)
