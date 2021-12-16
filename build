@@ -1,21 +1,17 @@
 #!/bin/sh
 #Dependencies: Stopify Racketscript (Racks) NPM Node
 RACKSOUT='../js-build'
-STOPDIR="node_modules/.bin/stopify"
+STOPDIR="./node_modules/.bin/stopify"
 STOPOUT="modules/$1.js"
 
 echo "Building $1 to $RACKSOUT/$STOPOUT"
 
+rm -rf ./js-build
+
 #run racks
-racks -t stopify -d $RACKSOUT $1
+racks -t stopify --stack-size 50 --restore-frames 5  -d $RACKSOUT $1
 
 cd $RACKSOUT
-
-#run rollup with babel
-rollup --input $STOPOUT -o $STOPOUT -f cjs --config rollup.config.js
-
-#use stopify
-$STOPDIR --require-runtime $STOPOUT $STOPOUT
 
 node $STOPOUT
 
